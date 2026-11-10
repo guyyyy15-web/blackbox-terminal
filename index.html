@@ -3,53 +3,63 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="נקמות שלי">
   <meta name="theme-color" content="#fcf1e7">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="description" content="האפליקציה לניהול נקמות קטנות וגדולות. הכל נשמר רק בטלפון שלך.">
-  <title>נקמות שלי</title>
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="preload" href="fonts/fredoka-hebrew.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/rubik-hebrew.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/app.css">
-  <script>
-    // Theme before first paint, so dark mode never flashes light.
-    try {
-      var s = JSON.parse(localStorage.getItem('nk.settings') || '{}'), t = s.theme || 'auto'
-      var dark = t === 'dark' || (t === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches)
-      document.documentElement.dataset.theme = dark ? 'dark' : 'light'
-      if (dark) document.querySelector('meta[name="theme-color"]').content = '#1d1521'
-    } catch (e) {}
-  </script>
+  <meta name="description" content="גלב תחזיר לי את הפלייסטישן">
+  <meta property="og:title" content="גלב תחזיר לי את הפלייסטישן">
+  <title>גלב תחזיר לי את הפלייסטישן</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎮%3C/text%3E%3C/svg%3E">
+  <style>
+    @font-face { font-family: 'Fredoka'; font-weight: 300 700; font-display: swap; src: url(fonts/fredoka-hebrew.woff2) format('woff2');
+      unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+    :root { --bg: #fcf1e7; --ink: #3a2340; --muted: #6b5371; --lilac: #e6d0ef; --lilac2: #f4e7f1; --plum: #7f4fa0; --sun: #f2c14e; --blush: #f4a9c4; --card: #fffaf5; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #1d1521; --ink: #f6ecf5; --muted: #c4afc8; --lilac: #46334f; --lilac2: #30243a; --plum: #c9a2e4; --card: #291f2f; }
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--bg); }
+    html, body { margin: 0; min-height: 100vh; min-height: 100dvh; color: var(--ink); }
+    body { font-family: 'Fredoka', system-ui, -apple-system, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: calc(env(safe-area-inset-top) + 32px) 20px calc(env(safe-area-inset-bottom) + 32px); position: relative; }
+    .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+    .checker { position: absolute; background: repeating-conic-gradient(var(--lilac) 0 25%, var(--lilac2) 0 50%) 0 0 / 44px 44px; }
+    .pad { width: min(300px, 70vw); height: auto; animation: wiggle 2.4s ease-in-out infinite; transform-origin: 50% 70%; }
+    @keyframes wiggle { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg) translateY(-6px); } }
+    h1 { margin: 28px 0 0; max-width: 14ch; font-size: clamp(44px, 13vw, 104px); line-height: 1.02; font-weight: 700; letter-spacing: -0.01em; }
+    h1 span { display: inline-block; background: var(--lilac); border-radius: 0.35em 0.45em 0.4em 0.5em; padding: 0.02em 0.22em 0.08em; margin-top: 0.08em; }
+    p { margin: 22px 0 0; font-size: 18px; color: var(--muted); }
+    .moved { position: fixed; left: 0; right: 0; bottom: calc(env(safe-area-inset-bottom) + 14px); font: 13px system-ui, sans-serif; color: var(--muted); }
+    .moved a { color: inherit; }
+    @media (prefers-reduced-motion: reduce) { .pad { animation: none; } }
+  </style>
 </head>
 <body>
-  <div id="splash" class="splash" aria-live="polite">
-    <div class="deco checker" aria-hidden="true" style="top:-40px;left:20%;width:320px;height:200px;border-radius:0 0 46% 54% / 0 0 60% 40%;background-size:48px 48px"></div>
-    <div class="deco checker" aria-hidden="true" style="bottom:-50px;right:-40px;width:300px;height:170px;border-radius:58% 42% 0 0 / 55% 45% 0 0;background-size:48px 48px"></div>
-    <div class="deco" aria-hidden="true" style="bottom:-60px;left:-30px;width:200px;height:130px;border-radius:50% 50% 0 0;background:var(--lilac-100)"></div>
-    <svg class="deco" aria-hidden="true" width="44" height="44" viewBox="0 0 24 24" style="top:21%;left:11%;transform:rotate(-14deg)" fill="var(--lilac-300)" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round"><path d="M12 20s-7.5-4.4-7.5-10.2A4.2 4.2 0 0 1 12 7.2a4.2 4.2 0 0 1 7.5 2.6C19.5 15.6 12 20 12 20z"/></svg>
-    <svg class="deco" aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" style="top:19.5%;right:13%" fill="var(--sun)" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3c.8 5.6 3.4 8.2 9 9-5.6.8-8.2 3.4-9 9-.8-5.6-3.4-8.2-9-9 5.6-.8 8.2-3.4 9-9z"/></svg>
-    <svg class="deco" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" style="top:24.6%;right:23.5%" fill="var(--ink)"><path d="M12 3c.8 5.6 3.4 8.2 9 9-5.6.8-8.2 3.4-9 9-.8-5.6-3.4-8.2-9-9 5.6-.8 8.2-3.4 9-9z"/></svg>
-    <svg class="cat-bob" role="img" aria-label="חתלתול" width="190" height="150" viewBox="0 0 190 150" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M40 70 L46 18 L82 46 Q95 42 108 46 L144 18 L150 70 Q160 96 150 116 Q130 146 95 146 Q60 146 40 116 Q30 96 40 70z" fill="var(--surface-raised)"/>
-      <path d="M52 30 L56 56 L74 46z" fill="var(--blush)" stroke-width="0"/><path d="M138 30 L134 56 L116 46z" fill="var(--blush)" stroke-width="0"/>
-      <path d="M62 88 Q70 80 78 88"/><path d="M112 88 Q120 80 128 88"/>
-      <ellipse cx="62" cy="104" rx="9" ry="5" fill="var(--blush)" stroke-width="0"/><ellipse cx="128" cy="104" rx="9" ry="5" fill="var(--blush)" stroke-width="0"/>
-      <path d="M90 100 L100 100 L95 106z" fill="var(--ink)" stroke-width="2"/><path d="M95 106 Q90 114 84 110 M95 106 Q100 114 106 110"/>
-      <path d="M30 96 L12 92 M30 106 L14 110 M160 96 L178 92 M160 106 L176 110" stroke-width="3"/>
-    </svg>
-    <div class="blob"><h1>נקמות שלי</h1></div>
-    <p>האפליקציה לניהול נקמות קטנות וגדולות</p>
-    <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
-    <span data-loading style="margin-top:12px;font-size:15px;line-height:22px;font-weight:500;color:var(--ink-muted)">טוענת את הנקמות שלך…</span>
+  <div class="bg" aria-hidden="true">
+  <div class="checker" style="top:-40px;left:-30px;width:260px;height:170px;border-radius:0 0 60% 40% / 0 0 70% 50%"></div>
+  <div class="checker" style="bottom:-50px;right:-40px;width:300px;height:170px;border-radius:58% 42% 0 0 / 55% 45% 0 0"></div>
   </div>
-  <div id="app"></div>
-  <noscript><p style="padding:24px">האפליקציה צריכה JavaScript כדי לעבוד.</p></noscript>
-  <script type="module" src="js/app.js"></script>
+
+  <svg class="pad" viewBox="0 0 300 190" role="img" aria-label="שלט של קונסולה" fill="none" stroke="var(--ink)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M70 40 H230 Q268 40 280 80 L296 150 Q300 180 272 182 Q252 184 236 160 L218 134 H82 L64 160 Q48 184 28 182 Q0 180 4 150 L20 80 Q32 40 70 40z" fill="var(--card)"/>
+    <path d="M78 74 v40 M58 94 h40" stroke-width="9"/>
+    <circle cx="222" cy="72" r="9" fill="var(--sun)"/><circle cx="248" cy="96" r="9" fill="var(--blush)"/>
+    <circle cx="196" cy="96" r="9" fill="#c9a3dd"/><circle cx="222" cy="120" r="9" fill="#7cc8e0"/>
+    <circle cx="118" cy="138" r="14" fill="var(--lilac)"/><circle cx="182" cy="138" r="14" fill="var(--lilac)"/>
+    <path d="M136 78 h28" stroke-width="5"/>
+    <path d="M150 40 V14" stroke-width="4" stroke-dasharray="2 9"/>
+  </svg>
+
+  <h1>גלב <span>תחזיר לי</span> את הפלייסטישן</h1>
+  <p>זה אצלך. כולם יודעים. 🎮</p>
+
+  <div class="moved">מחפשים את "נקמות שלי"? <a href="../deck-surfers/">היא עברה לכאן</a></div>
+
+  <script>
+    // This address used to host the "נקמות שלי" app. Remove its offline cache from phones that installed it.
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (rs) {
+        rs.forEach(function (r) { if (new URL(r.scope).pathname === location.pathname.replace(/index\.html$/, '')) r.unregister() })
+      })
+    }
+  </script>
 </body>
 </html>
