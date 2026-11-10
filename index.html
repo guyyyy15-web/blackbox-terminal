@@ -27,8 +27,6 @@
     h1 { margin: 28px 0 0; max-width: 14ch; font-size: clamp(44px, 13vw, 104px); line-height: 1.02; font-weight: 700; letter-spacing: -0.01em; }
     h1 span { display: inline-block; background: var(--lilac); border-radius: 0.35em 0.45em 0.4em 0.5em; padding: 0.02em 0.22em 0.08em; margin-top: 0.08em; }
     p { margin: 22px 0 0; font-size: 18px; color: var(--muted); }
-    .moved { position: fixed; left: 0; right: 0; bottom: calc(env(safe-area-inset-bottom) + 14px); font: 13px system-ui, sans-serif; color: var(--muted); }
-    .moved a { color: inherit; }
     @media (prefers-reduced-motion: reduce) { .pad { animation: none; } }
   </style>
 </head>
@@ -51,10 +49,9 @@
   <h1>גלב <span>תחזיר לי</span> את הפלייסטישן</h1>
   <p>זה אצלך. כולם יודעים. 🎮</p>
 
-  <div class="moved">מחפשים את "נקמות שלי"? <a href="../deck-surfers/">היא עברה לכאן</a></div>
 
   <script>
-    // This address used to host the "נקמות שלי" app. Remove its offline cache from phones that installed it.
+    // Remove the offline cache of the app that used to live here.
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(function (rs) {
         rs.forEach(function (r) { if (new URL(r.scope).pathname === location.pathname.replace(/index\.html$/, '')) r.unregister() })

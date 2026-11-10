@@ -1,6 +1,4 @@
-// This address used to host the "נקמות שלי" app (now at /deck-surfers/). Phones that installed it check
-// this file for updates; this version deletes the old offline copy, unregisters itself and reloads,
-// so they see the landing page.
+// Removes the offline copy of the app that used to live here, then unregisters itself.
 self.addEventListener('install', () => self.skipWaiting())
 self.addEventListener('activate', (e) => {
   e.waitUntil(
